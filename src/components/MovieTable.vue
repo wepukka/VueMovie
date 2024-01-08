@@ -5,7 +5,6 @@
     <v-responsive>
       <v-text-field v-model="title" label="Filter By Title" hide-details="auto"></v-text-field>
     </v-responsive>
-
     <v-responsive>
       <v-text-field
         v-model="release"
@@ -25,7 +24,6 @@
       chips
       multiple
     ></v-select>
-
     <v-btn block>Search</v-btn>
   </div>
   <table>
