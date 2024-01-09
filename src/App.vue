@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { onMounted } from 'vue'
+
 // Api //
 import { apiFetchMovies } from '../api'
 
@@ -30,6 +31,10 @@ export default {
       movies: []
     }
   }
+  /* async mounted() {
+    let movies = await apiFetchMovies()
+    this.movies = movies
+  } */
 }
 </script>
 

@@ -1,13 +1,21 @@
 const localhost = 'http://localhost:3000'
 
+export async function apiFetchMovieById(id) {
+  const response = await fetch(`${localhost}/movie/${id}`, {
+    method: 'GET'
+  })
+
+  const payload = await response.json()
+  return payload
+}
+
 export async function apiFetchMovies() {
   const response = await fetch(`${localhost}/all-movies`, {
     method: 'GET'
   })
 
-  const movies = await response.json()
-
-  return movies
+  const payload = await response.json()
+  return payload
 }
 
 export async function apiAddMovie(movie) {
@@ -30,4 +38,13 @@ export async function apiAddMovie(movie) {
   }
 
   return res
+}
+
+export async function apiDeleteMovie(id) {
+  const response = await fetch(`${localhost}/del-movie/${id}`, {
+    method: 'GET'
+  })
+  const payload = await response.json()
+  console.log(payload)
+  return payload
 }

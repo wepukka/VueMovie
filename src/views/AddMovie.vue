@@ -7,13 +7,10 @@ import { apiAddMovie } from '../../api'
   <h1>Add Movie</h1>
   <p>Contribute to MovieDb by adding new movies</p>
   <div class="fields-container">
-    <v-responsive>
-      <v-text-field v-model="movie.title" label="Title" hide-details="auto"></v-text-field>
-    </v-responsive>
-    <v-responsive>
-      <v-text-field v-model="movie.year" label="Year" hide-details="auto"></v-text-field>
-    </v-responsive>
+    <v-text-field v-model="movie.title" label="Title" hide-details="auto"></v-text-field>
+    <v-text-field v-model="movie.year" label="Year" hide-details="auto"></v-text-field>
     <v-select v-model="movie.genre" :items="genres" label="Genre"></v-select>
+    <v-textarea v-model="movie.lore" label="Lore (optional)"></v-textarea>
     <v-btn block @click="addMovie(movie)">Add movie</v-btn>
   </div>
   <div class="pop-up-msg">
@@ -32,7 +29,8 @@ export default {
       movie: {
         title: '',
         year: '',
-        genre: []
+        genre: [],
+        lore: ''
       },
       static_title: '',
       success: false

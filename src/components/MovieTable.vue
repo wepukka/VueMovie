@@ -35,7 +35,8 @@ import { apiFetchMovies } from '../../api'
       <th>Genre</th>
       <th>Release Year</th>
     </tr>
-    <tr v-for="(movie, index) in movies" :key="index">
+
+    <tr v-for="(movie, index) in movies" :key="index" @click="goToMovieView(movie)">
       <td>{{ movie.title }}</td>
       <td>{{ movie.genre }}</td>
       <td>{{ movie.year }}</td>
@@ -61,7 +62,11 @@ export default {
       this.movies = movies.payload.data
     }
   },
-  methods: {}
+  methods: {
+    goToMovieView(movie) {
+      this.$router.push({ name: 'movie', params: { id: movie._id } }) // TEST PROPS !! //
+    }
+  }
 }
 </script>
 
