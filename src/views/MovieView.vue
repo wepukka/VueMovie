@@ -84,6 +84,11 @@ export default {
 p {
   border-radius: 10px;
 }
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
 .movie-flex-container {
   position: relative;
   border-radius: 5px;
@@ -99,6 +104,11 @@ p {
   flex-direction: column;
   max-width: 800px;
   border-radius: 10px;
+}
+
+.movie-data-container h1,
+p:not(.lore) {
+  text-transform: capitalize;
 }
 
 .details {

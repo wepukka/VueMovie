@@ -80,6 +80,7 @@ table tr td {
   padding: 10px;
   cursor: pointer;
   text-transform: capitalize;
+  overflow: hidden;
 }
 table tr:first-child th {
   font-size: 1rem;
