@@ -1,13 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import { onMounted } from 'vue'
-
-// Api //
-import { apiFetchMovies } from '../api'
-
-// Components //
-import AddMovie from './views/AddMovie.vue'
-import MovieTable from './components/MovieTable.vue'
 </script>
 
 <template>
@@ -27,14 +19,8 @@ import MovieTable from './components/MovieTable.vue'
 <script>
 export default {
   data() {
-    return {
-      movies: []
-    }
+    return {}
   }
-  /* async mounted() {
-    let movies = await apiFetchMovies()
-    this.movies = movies
-  } */
 }
 </script>
 
