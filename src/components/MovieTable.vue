@@ -1,4 +1,7 @@
-<script setup></script>
+<script setup>
+import {} from 'vue'
+import { apiFetchMovies } from '../../api'
+</script>
 
 <template>
   <div class="filters-container">
@@ -24,7 +27,7 @@
       chips
       multiple
     ></v-select>
-    <v-btn block>Search</v-btn>
+    <v-btn block @click="fetchMovies()">Search</v-btn>
   </div>
   <table>
     <tr>
@@ -32,10 +35,11 @@
       <th>Genre</th>
       <th>Release Year</th>
     </tr>
-    <tr v-for="(movie, index) in movies" :key="index">
+
+    <tr v-for="(movie, index) in movies" :key="index" @click="goToMovieView(movie)">
       <td>{{ movie.title }}</td>
       <td>{{ movie.genre }}</td>
-      <td>{{ movie.release }}</td>
+      <td>{{ movie.year }}</td>
     </tr>
   </table>
 </template>
@@ -49,33 +53,18 @@ export default {
       selected_genres: [],
       release: '',
       title: '',
-      movies: [
-        {
-          title: 'Inception',
-          release: '2010',
-          genre: 'Science Fiction'
-        },
-        {
-          title: 'The Shawshank Redemption',
-          release: '1994',
-          genre: 'Drama'
-        },
-        {
-          title: 'The Dark Knight',
-          release: '2008',
-          genre: 'Action, Crime, Drama'
-        },
-        {
-          title: 'Pulp Fiction',
-          release: '1994',
-          genre: 'Crime, Drama'
-        },
-        {
-          title: 'Forrest Gump',
-          release: '1994',
-          genre: 'Drama, Romance'
-        }
-      ]
+      movies: []
+    }
+  },
+  async mounted() {
+    let movies = await apiFetchMovies()
+    if (movies.payload.success === true) {
+      this.movies = movies.payload.data
+    }
+  },
+  methods: {
+    goToMovieView(movie) {
+      this.$router.push({ name: 'movie', params: { id: movie._id } }) // TEST PROPS !! //
     }
   }
 }

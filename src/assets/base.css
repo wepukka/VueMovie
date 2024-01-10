@@ -3,7 +3,7 @@
   --background: #092642;
   --item-background: #004688;
   --item-background-hover: rgb(14, 40, 88);
-  --text: #0184ff;
+  --text: #ffffff;
 }
 
 /* semantic color variables for this project */
@@ -23,9 +23,6 @@ body {
   min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);
-  transition:
-    color 0.5s,
-    background-color 0.5s;
   line-height: 1.6;
   font-family:
     Inter,

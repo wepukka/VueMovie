@@ -5,14 +5,8 @@
   font-weight: normal;
   max-width: 1280px;
   margin: 0 auto;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: var(--text);
-  transition: 0.4s;
-  padding: 3px;
+  background: linear-gradient(var(--background), var(--item-background));
+  min-height: 100vh;
 }
 
 @media (hover: hover) {
