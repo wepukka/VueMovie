@@ -7,8 +7,8 @@ div {
   height: 30px;
   width: 30px;
   border-radius: 20px;
-  border-bottom: 3px solid white;
-  border-right: 3px solid white;
+  border-bottom: 3px solid var(--text);
+  border-right: 3px solid var(--text);
 
   animation: rotate 750ms infinite;
 }

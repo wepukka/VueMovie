@@ -21,7 +21,8 @@ import EditMovie from '@/components/EditMovie.vue'
         <p>{{ movie.genre }}</p>
       </div>
       <div class="lore-container">
-        <p class="lore">{{ movie.lore }}</p>
+        <h2>Lore</h2>
+        <p class="lore">{{ movie.lore !== '' ? movie.lore : 'This movie is missing lore!' }}</p>
       </div>
     </div>
     <div class="movie-action-container" v-if="editing === false && deleting === false">
@@ -96,14 +97,18 @@ h1 {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 30px;
 }
 
 .movie-data-container {
-  position: relative;
   display: flex;
   flex-direction: column;
-  max-width: 800px;
-  border-radius: 10px;
+  align-items: center;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
 }
 
 .movie-data-container h1,
@@ -111,34 +116,52 @@ p:not(.lore) {
   text-transform: capitalize;
 }
 
-.details {
-  display: flex;
-  gap: 5px;
-}
-.details p {
-  margin: 0;
-  padding: 5px;
-  border: 1px solid white;
-}
-.lore {
-  /*   background-color: var(--item-background); */
-  padding: 10px;
-  margin-top: 10px;
-}
-.lore-container {
-  display: flex;
+h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
 }
 
-.delete-pop-up {
-  flex-direction: column;
+.details {
   display: flex;
   gap: 10px;
+  margin-bottom: 15px;
   text-align: center;
-  background-color: var(--background);
-  border-radius: 10px;
+}
+
+.details p {
+  padding: 5px;
+  width: 80px;
+  font-size: 18px;
+  margin: 5px 0;
+  border: 1px solid var(--text);
+}
+
+.lore-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+.lore {
+  font-style: italic;
+  color: #555;
+}
+.delete-pop-up {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f8f8f8;
+  border-radius: 8px;
   padding: 20px;
-  max-width: 400px;
-  height: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  gap: 10px;
+}
+
+.delete-pop-up button {
+  width: 150px;
 }
 
 .delete-pop-up span {
@@ -147,6 +170,7 @@ p:not(.lore) {
 /* Action buttons start */
 .movie-action-container {
   display: flex;
+  justify-content: center;
   gap: 10px;
   margin-top: 20px;
 }
