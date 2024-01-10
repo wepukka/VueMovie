@@ -48,15 +48,26 @@ export default {
     }
   },
   methods: {
+    getCurrYear() {
+      let d = new Date().getFullYear()
+      return d
+    },
     async addMovie(movie) {
       this.isError = false
       this.success = false
 
-      if (movie.title === '' || (movie.year === '') | (movie.genre === '')) {
+      if (
+        movie.title === '' ||
+        (movie.genre === '') |
+          (movie.year === '') |
+          !(parseInt(movie.year) >= 1888) |
+          !(parseInt(movie.year) <= this.getCurrYear() + 1)
+      ) {
         this.isError = true
-        return (this.errorMsg = '* Title, Year and Genre is required')
+        return (this.errorMsg = `* Title, Year and Genre is required, Year must be between 1888 and ${
+          this.getCurrYear() + 1
+        } `)
       }
-
       let response = await apiAddMovie(movie)
       if (response.payload.success) {
         this.static_title = movie.title

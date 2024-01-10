@@ -24,7 +24,6 @@ export default {
     return {
       movies: [],
       loadingMovies: false,
-
       isError: false,
       errorMsg: ''
     }
