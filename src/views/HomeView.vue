@@ -9,6 +9,10 @@ import ErrorMsg from '@/components/ErrorMsg.vue'
 </script>
 
 <template>
+  <div class="intro">
+    Welcome to MovieDB, your ultimate destination for managing and exploring your movie collection
+    effortlessly!
+  </div>
   <MovieFilters @fetchWithFilters="fetchWithFilters" />
   <MovieTable :movies="movies" :loading="loadingMovies" />
   <ErrorMsg v-if="isError" :errorMsg="errorMsg" />
@@ -51,4 +55,11 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+</style>
