@@ -19,5 +19,6 @@ export default {
 div {
   margin-top: 20px;
   text-align: center;
+  font-weight: 700;
 }
 </style>

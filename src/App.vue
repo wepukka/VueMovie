@@ -43,6 +43,9 @@ v-button {
 }
 .bar h1 {
   font-size: 1.5rem;
+  background: -webkit-linear-gradient(var(--background) 10%, #ffffff, var(--background) 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .top-bar {
   border-bottom: 1px solid white;
