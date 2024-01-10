@@ -5,14 +5,7 @@
   font-weight: normal;
   max-width: 1280px;
   margin: 0 auto;
-  background: linear-gradient(var(--background), var(--item-background));
   min-height: 100vh;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: var(--item-background);
-  }
 }
 
 @media (min-width: 1024px) {

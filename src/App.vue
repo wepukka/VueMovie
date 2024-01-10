@@ -25,14 +25,12 @@ export default {
 </script>
 
 <style scoped>
-v-button {
-  background-color: red;
-}
-
 .main-container {
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 20px;
+  background-color: var(--background);
+  min-height: 100vh;
 }
 .bar {
   display: flex;
@@ -43,22 +41,19 @@ v-button {
 }
 .bar h1 {
   font-size: 1.5rem;
-  background: -webkit-linear-gradient(var(--background) 10%, #ffffff, var(--background) 90%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
+
 .top-bar {
   border-bottom: 1px solid white;
 }
 
 a {
   padding: 10px 20px 10px 20px;
-  color: rgb(218, 218, 218);
+  color: var(--text);
   text-decoration: none; /* no underline */
 }
 .router-link-exact-active {
-  color: var(--color-text);
+  color: var(--item-background);
   font-weight: bold;
 }
 
