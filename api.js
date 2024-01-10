@@ -18,6 +18,17 @@ export async function apiFetchMovies() {
   return payload
 }
 
+export async function apiFetchWithFilters(data) {
+  const response = await fetch(
+    `${localhost}/filter/?title=${data.title}&year=${data.year}&genre=${data.genre}`,
+    {
+      method: 'GET'
+    }
+  )
+  const payload = await response.json()
+  return payload
+}
+
 export async function apiAddMovie(movie) {
   const response = await fetch(`${localhost}/add-movie`, {
     method: 'POST',
@@ -46,5 +57,17 @@ export async function apiDeleteMovie(id) {
   })
   const payload = await response.json()
   console.log(payload)
+  return payload
+}
+
+export async function apiUpdateMovie(movie) {
+  const response = await fetch(`${localhost}/update/${movie._id}`, {
+    method: 'POST',
+    body: JSON.stringify(movie),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8'
+    }
+  })
+  const payload = await response.json()
   return payload
 }
