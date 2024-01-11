@@ -13,7 +13,7 @@ import ErrorMsg from '@/components/ErrorMsg.vue'
     Welcome to MovieDB, your ultimate destination for managing and exploring your movie collection
     effortlessly!
   </div>
-  <MovieFilters @fetchWithFilters="fetchWithFilters" />
+  <MovieFilters @pushQueryAndReload="pushQueryAndReload" />
   <MovieTable :movies="movies" :loading="loadingMovies" />
   <ErrorMsg v-if="isError" :errorMsg="errorMsg" />
 </template>
@@ -25,32 +25,65 @@ export default {
       movies: [],
       loadingMovies: false,
       isError: false,
-      errorMsg: ''
+      errorMsg: '',
+      titleFilter:"",
+      yearFilter:"",
+      genreFilter:""
     }
   },
+  
   async mounted() {
     this.loadingMovies = true
-    let _movies = await apiFetchMovies()
 
-    setTimeout(() => {
+  // Fetch with query //     
+    let queryString = window.location.search;
+    let urlParams = new URLSearchParams(queryString);
+
+    if (urlParams.size !== 0) {
+
+    urlParams.has("title") ? this.titleFilter = urlParams.get("title") : this.titleFilter = ""
+    urlParams.has("year") ? this.yearFilter = urlParams.get("year") : this.yearFilter = ""
+    urlParams.has("genre") ? this.genreFilter = urlParams.get("genre") : this.genreFilter = ""
+
+      return this.fetchWithFilters({
+         title: this.titleFilter,
+          year: this.yearFilter,
+          genre: this.genreFilter
+      })
+    }
+    
+    // If no query, fetch all movies 
+    let _movies = await apiFetchMovies()
       if (_movies.payload.success === true) {
         this.movies = _movies.payload.data
-        this.loadingMovies = false
       }
-    }, 1000)
+      else {
+        this.movies = []
+        this.isError = true
+        this.errorMsg = _movies.payload.errorMsg
+      }
+      return this.loadingMovies = false
   },
   methods: {
+   async pushQueryAndReload(filters) {
+        await this.$router.push({name:"home", params: { filter: "filter"}, query: { title: filters.title, year: filters.year, genre: filters.genre }})
+        return location.reload()
+    },
     async fetchWithFilters(filters) {
       this.isError = false
       let filteredMovies = await apiFetchWithFilters(filters)
+
       if (!filteredMovies.payload.success) {
         this.movies = []
         this.isError = true
-        return (this.errorMsg = filteredMovies.payload.errorMsg)
+        this.errorMsg = filteredMovies.payload.errorMsg
       }
-      return (this.movies = filteredMovies.payload.data)
-    }
-  }
+      else {
+        this.movies = filteredMovies.payload.data
+      }
+      return this.loadingMovies = false
+    },
+    } 
 }
 </script>
 

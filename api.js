@@ -10,22 +10,28 @@ export async function apiFetchMovieById(id) {
 }
 
 export async function apiFetchMovies() {
+
+  
   const response = await fetch(`${localhost}/all-movies`, {
     method: 'GET'
   })
-
+  
   const payload = await response.json()
   return payload
+ 
 }
 
 export async function apiFetchWithFilters(data) {
+
   const response = await fetch(
     `${localhost}/filter/?title=${data.title}&year=${data.year}&genre=${data.genre}`,
     {
       method: 'GET'
     }
   )
+
   const payload = await response.json()
+ 
   return payload
 }
 
@@ -53,7 +59,7 @@ export async function apiAddMovie(movie) {
 
 export async function apiDeleteMovie(id) {
   const response = await fetch(`${localhost}/del-movie/${id}`, {
-    method: 'GET'
+    method: 'DELETE'
   })
   const payload = await response.json()
   console.log(payload)

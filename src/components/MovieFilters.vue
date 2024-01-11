@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     fetch(filters) {
-      this.$emit('fetchWithFilters', filters)
+      this.$emit('pushQueryAndReload', filters)
     }
   }
 }

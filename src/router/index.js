@@ -6,11 +6,13 @@ import HomeView from '../views/HomeView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+ 
     {
-      path: '/',
+      path: '/:filter?',
       name: 'home',
       component: HomeView
     },
+  
     {
       path: '/contribute',
       name: 'contribute',
@@ -20,7 +22,8 @@ const router = createRouter({
       path: '/movies/:id',
       name: 'movie',
       component: MovieView
-    }
+    },
+   
   ]
 })
 
