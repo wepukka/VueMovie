@@ -4,13 +4,15 @@
   --item-background: rgb(187, 116, 116);
   --item-background-hover: rgb(14, 40, 88);
   --text: #000000;
+  --movie-background: #f8f8f8;
+
+  --pos: green;
+  --neg: red;
 }
 
 /* semantic color variables for this project */
 :root {
   --color-background: var(--background);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
 }
 
 *,
