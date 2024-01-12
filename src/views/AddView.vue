@@ -1,5 +1,8 @@
 <script setup>
-// api //
+// Helpers
+import { movieDataIsValid } from '../helpers/movieHelpers'
+
+// Api //
 import { apiAddMovie } from '../../api'
 import ErrorMsg from '@/components/ErrorMsg.vue'
 </script>
@@ -20,7 +23,7 @@ import ErrorMsg from '@/components/ErrorMsg.vue'
     ></v-text-field>
     <v-select v-model="movie.genre" :items="genres" label="Genre *"></v-select>
     <v-textarea v-model="movie.lore" label="Lore (optional)"></v-textarea>
-    <v-btn block @click="addMovie(movie)">Add movie</v-btn>
+    <v-btn block style="color: var(--pos)" @click="addMovie(movie)">Add movie</v-btn>
   </div>
   <div class="pop-up-msg">
     <p v-if="success">
@@ -48,37 +51,28 @@ export default {
     }
   },
   methods: {
-    getCurrYear() {
-      let d = new Date().getFullYear()
-      return d
-    },
     async addMovie(movie) {
       this.isError = false
       this.success = false
 
-      if (
-        movie.title === '' ||
-        (movie.genre === '') |
-          (movie.year === '') |
-          !(parseInt(movie.year) >= 1888) |
-          !(parseInt(movie.year) <= this.getCurrYear() + 1)
-      ) {
+      let isValid = movieDataIsValid({
+        title: movie.title,
+        year: movie.year,
+        genre: movie.genre
+      })
+
+      if (!isValid.success) {
         this.isError = true
-        return (this.errorMsg = `* Title, Year and Genre is required, Year must be between 1888 and ${
-          this.getCurrYear() + 1
-        } `)
+        return (this.errorMsg = isValid.errorMsg)
       }
+
       let response = await apiAddMovie(movie)
       if (response.payload.success) {
-        this.static_title = movie.title
-        this.success = true
-        movie.title = ''
+        ;(this.static_title = movie.title), (this.success = true), (movie.title = '')
         movie.year = ''
         movie.genre = ' '
         movie.lore = ' '
-      } else {
-        this.isError = true
-        return (this.errorMsg = response.payload.errorMsg)
+        return (this.success = true)
       }
     }
   }

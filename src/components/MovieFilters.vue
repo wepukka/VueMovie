@@ -26,7 +26,7 @@ defineEmits(['fetchWithFilters'])
       label="Filter By Genre"
       chips
     ></v-select>
-    <v-btn block @click="fetch(filters)">Search</v-btn>
+    <v-btn block style="color: var(--pos)" @click="fetch(filters)">Search</v-btn>
   </div>
 </template>
 
