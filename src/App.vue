@@ -38,6 +38,8 @@ export default {
   align-items: center;
   height: 100px;
   margin-bottom: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 .bar h1 {
   font-size: 1.5rem;
@@ -64,6 +66,3 @@ a {
   }
 }
 </style>
-
-<!-- GLOBAL STYLES  -->
-<style></style>

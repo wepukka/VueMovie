@@ -1,6 +1,10 @@
 <script setup>
 import { ref } from 'vue'
+
+// Emit
 defineEmits(['fetchWithFilters'])
+
+// Props
 const props = defineProps({
   filters: Object
 })
