@@ -31,7 +31,7 @@ let filters = ref(props.filters)
     ></v-text-field>
     <v-select v-model="filters.genre" :items="genres" label="Filter By Genre">
       <template #selection="{ item }">
-        <v-chip class="v-chip" v-if="this.filters.genre !== ''">
+        <v-chip class="v-chip" v-if="filters.genre !== ''">
           {{ item.title }}
         </v-chip>
       </template>
