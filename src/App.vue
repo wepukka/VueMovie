@@ -21,10 +21,9 @@ export default {
 
 <style scoped>
 .main-container {
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-bottom: 20px;
+  padding: 20px 10px 20px 10px;
   background-color: var(--background);
+
   min-height: 100vh;
 }
 .bar {

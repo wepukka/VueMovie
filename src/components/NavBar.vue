@@ -33,6 +33,11 @@ export default {
   methods: {
     toggleNav() {
       this.navOpen = !this.navOpen
+      if (this.navOpen) {
+        return (document.getElementsByTagName('body')[0].style.overflowY = 'hidden')
+      } else {
+        return (document.getElementsByTagName('body')[0].style.overflowY = 'visible')
+      }
     },
 
     onResize() {
@@ -61,11 +66,10 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
   height: 80px;
-
-  box-shadow: 0px 1px 5px 0.1px black;
   margin-bottom: 20px;
+  width: 100%;
+  border-bottom: 1px solid black;
 }
 .nav-links {
   display: flex;
@@ -122,23 +126,24 @@ export default {
     flex-direction: column;
   }
   .nav-links {
-    position: absolute;
+    position: fixed;
     flex-direction: column;
     padding-top: 10px;
     gap: 10px;
-    margin-top: 90px;
+    margin-top: 99px;
     width: 100%;
     left: -600px;
     top: 0;
     transition: all 500ms;
     background-color: var(--item-background);
     z-index: 99;
-    height: 100%;
+    height: 100vh;
   }
   .nav-links a {
+    color: white;
     width: 100%;
     text-align: center;
-    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.452);
+    border-bottom: 1px solid black;
   }
 
   .nav-links a:hover {
