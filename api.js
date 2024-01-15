@@ -1,5 +1,6 @@
 const localhost = 'http://localhost:3000'
 
+// Fetch by id
 export async function apiFetchMovieById(id) {
   const response = await fetch(`${localhost}/movie/${id}`, {
     method: 'GET'
@@ -9,6 +10,7 @@ export async function apiFetchMovieById(id) {
   return payload
 }
 
+// Fetch all
 export async function apiFetchMovies() {
   const response = await fetch(`${localhost}/all-movies`, {
     method: 'GET'
@@ -18,6 +20,7 @@ export async function apiFetchMovies() {
   return payload
 }
 
+// Fetch using filters
 export async function apiFetchWithFilters(data) {
   const response = await fetch(
     `${localhost}/filter/?title=${data.title}&year=${data.year}&genre=${data.genre}`,
@@ -30,6 +33,7 @@ export async function apiFetchWithFilters(data) {
   return payload
 }
 
+// Add movie
 export async function apiAddMovie(movie) {
   const response = await fetch(`${localhost}/add-movie`, {
     method: 'POST',
@@ -52,15 +56,21 @@ export async function apiAddMovie(movie) {
   return res
 }
 
+// Delete by id
 export async function apiDeleteMovie(id) {
-  const response = await fetch(`${localhost}/del-movie/${id}`, {
-    method: 'DELETE'
+  const response = await fetch(`${localhost}/del-movie`, {
+    method: 'POST',
+    body: JSON.stringify({ id: id }),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8'
+    }
   })
   const payload = await response.json()
   console.log(payload)
   return payload
 }
 
+// Update movie
 export async function apiUpdateMovie(movie) {
   const response = await fetch(`${localhost}/update/${movie._id}`, {
     method: 'POST',
