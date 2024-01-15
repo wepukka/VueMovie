@@ -50,11 +50,11 @@ export default {
       return (this.editing = false)
     },
     async deleteMovie() {
-      let tryDelete = await apiDeleteMovie(this.movie._id)
-      if (tryDelete.payload.success) {
+      let deleted = await apiDeleteMovie(this.movie._id)
+      if (deleted.payload.success) {
         this.$router.push({ name: 'home' })
       } else {
-        window.alert('Something went wrong')
+        window.alert(deleted.payload.errorMsg)
       }
     },
     async fetchMovieById() {
