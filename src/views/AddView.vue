@@ -73,6 +73,9 @@ export default {
         movie.genre = ' '
         movie.lore = ' '
         return (this.success = true)
+      } else {
+        this.isError = true
+        this.errorMsg = response.payload.errorMsg
       }
     }
   }

@@ -1,8 +1,8 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
   --background: #ffffff;
-  --item-background: rgb(187, 116, 116);
-  --item-background-hover: rgb(14, 40, 88);
+  --item-background: rgb(54, 151, 216);
+  --item-background-hover: rgba(0, 0, 0, 0.151);
   --text: #000000;
   --movie-background: #f8f8f8;
 

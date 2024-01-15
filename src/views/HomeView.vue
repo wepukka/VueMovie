@@ -95,6 +95,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px;
+  border: px solid var(--item-background);
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 </style>
