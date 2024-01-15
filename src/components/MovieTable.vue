@@ -82,35 +82,49 @@ table {
   width: 100%;
   border-collapse: collapse;
 }
+
 table th,
 td {
   text-align: left;
 }
 
 table tr th {
-  background-color: rgb(187, 116, 116);
+  color: white;
+  background-color: var(--item-background);
+}
+
+table tr th:first-child {
+  border-top-left-radius: 5px;
+}
+table tr th:last-child {
+  border-top-right-radius: 5px;
 }
 
 tr,
 td:nth-last-child(-n + 2) {
   width: 15%; /* Equal width for each column, adjust as needed */
-  word-wrap: break-word; /* Wrap long content */
 }
 
 table tr td {
+  font-weight: bold;
   font-size: 0.8rem;
-  padding: 10px;
+  padding: 15px 10px 15px 10px;
   cursor: pointer;
   text-transform: capitalize;
   overflow: hidden;
 }
+
+table tr:not(:first-child) {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
 table tr:first-child th {
   font-size: 1rem;
-  height: 60px;
-  padding: 20px 10px 20px 10px;
+
+  padding: 10px 10px 10px 10px;
 }
 table tr:hover {
-  background-color: rgba(88, 80, 80, 0.2);
+  background-color: var(--item-background-hover);
 }
 
 /* V-SELECT */
@@ -119,23 +133,23 @@ table tr:hover {
 .pagination {
   display: flex;
   justify-content: center;
-  background-color: var(--background);
+  background-color: var(--item-background);
   margin-bottom: 20px;
   height: 50px;
-  border-top: 1px solid;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .pagination button {
+  color: grey;
   margin: 5px;
-
   padding: 5px 10px;
   cursor: pointer;
-  background-color: var(--item-background);
+  background-color: var(--background);
   width: 50px;
 }
 .pagination .active {
-  color: var(--background);
-  border-color: #007bff;
+  color: black;
 }
 
 .loading-container {
