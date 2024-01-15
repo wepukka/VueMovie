@@ -22,7 +22,10 @@ export default {
   mounted() {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize)
-    })
+    }),
+      this.$nextTick(() => {
+        window.addEventListener('onOpen', this.onOpen)
+      })
   },
   beforeMount() {
     window.removeEventListener('resize', this.onResize)
@@ -30,11 +33,10 @@ export default {
   methods: {
     toggleNav() {
       this.navOpen = !this.navOpen
-      console.log(this.navOpen)
     },
+
     onResize() {
       this.windowWidth = window.innerWidth
-
       if (this.windowWidth > 600) {
         this.navOpen = false
       }
@@ -61,11 +63,13 @@ export default {
   align-items: center;
   padding: 10px;
   height: 80px;
+
   box-shadow: 0px 1px 5px 0.1px black;
   margin-bottom: 20px;
 }
 .nav-links {
   display: flex;
+  align-items: center;
 }
 .nav a {
   padding: 10px;
@@ -122,14 +126,14 @@ export default {
     flex-direction: column;
     padding-top: 10px;
     gap: 10px;
-    margin-top: 80px;
+    margin-top: 90px;
     width: 100%;
-    height: 100%;
     left: -600px;
     top: 0;
     transition: all 500ms;
     background-color: var(--item-background);
     z-index: 99;
+    height: 100%;
   }
   .nav-links a {
     width: 100%;
