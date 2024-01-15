@@ -144,12 +144,15 @@ table tr:hover {
   color: grey;
   margin: 5px;
   padding: 5px 10px;
+  border-radius: 5px;
   cursor: pointer;
   background-color: var(--background);
+  border: 1px solid black;
   width: 50px;
 }
 .pagination .active {
   color: black;
+  font-weight: bold;
 }
 
 .loading-container {
