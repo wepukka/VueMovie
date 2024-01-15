@@ -1,13 +1,11 @@
-<script setup>
-import { RouterLink } from 'vue-router'
-</script>
+<script setup></script>
 
 <template>
   <div class="nav">
     <h1>Movie DB</h1>
     <div class="nav-links" :class="navOpen ? 'toggled' : null">
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/contribute">Contribute</RouterLink>
+      <a @click="routerPush('/', $event)">Home</a>
+      <a @click="routerPush('/contribute', $event)">Contribute</a>
     </div>
     <div class="toggle-mobile-nav" :class="navOpen ? 'expanded' : null" @click="toggleNav()">
       <div id="line1" className="line"></div>
@@ -22,15 +20,17 @@ export default {
   mounted() {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize)
-    }),
-      this.$nextTick(() => {
-        window.addEventListener('onOpen', this.onOpen)
-      })
+    })
   },
   beforeMount() {
     window.removeEventListener('resize', this.onResize)
   },
   methods: {
+    routerPush(url) {
+      this.$router.push(url)
+      document.getElementsByTagName('body')[0].style.overflowY = 'visible'
+      return (this.navOpen = false)
+    },
     toggleNav() {
       this.navOpen = !this.navOpen
       if (this.navOpen) {
@@ -57,10 +57,6 @@ export default {
 </script>
 
 <style scoped>
-.router-link-exact-active {
-  font-weight: bold;
-}
-
 .nav {
   display: flex;
   flex-direction: row;
@@ -76,10 +72,15 @@ export default {
   align-items: center;
 }
 .nav a {
+  cursor: pointer;
   padding: 10px;
   text-decoration: none;
   color: black;
 }
+.nav-links a:hover {
+  background-color: var(--item-background-hover);
+}
+
 .toggle-mobile-nav {
   cursor: pointer;
   display: none;
@@ -99,18 +100,17 @@ export default {
 
 .expanded .line {
   position: absolute;
+  transition: transform 500ms ease-in-out;
   top: 45%;
 }
 
 .expanded #line1 {
-  transition: 500ms ease-in-out;
   transform: rotate(45deg);
 }
 .expanded #line2 {
   display: none;
 }
 .expanded #line3 {
-  transition: 500ms ease-in-out;
   transform: rotate(-45deg);
 }
 
@@ -128,8 +128,7 @@ export default {
   .nav-links {
     position: fixed;
     flex-direction: column;
-    padding-top: 10px;
-    gap: 10px;
+
     margin-top: 99px;
     width: 100%;
     left: -600px;
@@ -140,15 +139,13 @@ export default {
     height: 100vh;
   }
   .nav-links a {
+    padding: 25px;
     color: white;
     width: 100%;
     text-align: center;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(255, 255, 255);
   }
 
-  .nav-links a:hover {
-    background-color: var(--item-background-hover);
-  }
   .toggled {
     left: 0;
   }
