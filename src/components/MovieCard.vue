@@ -3,6 +3,7 @@
 <template>
   <div class="movie-card-container">
     <h1>{{ movie.title }}</h1>
+    <img :src="movie.image" />
     <div class="card-details">
       <p>{{ movie.year }}</p>
       <p>{{ movie.genre }}</p>
@@ -39,13 +40,26 @@ export default {
 
 <style scoped>
 h1 {
+  text-align: center;
   font-size: 1.2rem;
   margin-bottom: 10px;
 }
+img {
+  max-height: 200px;
+  max-width: 100%;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
 .movie-card-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.movie-card-inner-container {
+  display: flex;
+  justify-content: space-between;
 }
 
 .movie-card-container h1,
@@ -69,10 +83,12 @@ p:not(.card-lore) {
 }
 
 .card-lore-container {
+  align-self: flex-start;
   display: flex;
   flex-direction: column;
   gap: 10px;
   border-top: 1px solid #ccc;
+  width: 100%;
   padding-top: 10px;
 }
 

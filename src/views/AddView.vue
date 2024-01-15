@@ -23,6 +23,11 @@ import ErrorMsg from '@/components/ErrorMsg.vue'
     ></v-text-field>
     <v-select v-model="movie.genre" :items="genres" label="Genre *"></v-select>
     <v-textarea v-model="movie.lore" label="Lore (optional)"></v-textarea>
+    <div class="add-image-container">
+      <p>Add image (MAX FILE SIZE 50KB)</p>
+      <a href="https://imagecompressor.io/compress-to-exact-size">COMPRESS IMAGES</a>
+      <input type="file" accept="image/jpeg" @change="uploadImage" />
+    </div>
     <v-btn block style="color: var(--pos)" @click="addMovie(movie)">Add movie</v-btn>
   </div>
   <div class="pop-up-msg">
@@ -42,7 +47,8 @@ export default {
         title: '',
         year: '',
         genre: '',
-        lore: ''
+        lore: '',
+        image: null
       },
       static_title: '',
       success: false,
@@ -77,6 +83,15 @@ export default {
         this.isError = true
         this.errorMsg = response.payload.errorMsg
       }
+    },
+    uploadImage(e) {
+      const image = e.target.files[0]
+      const reader = new FileReader()
+      reader.readAsDataURL(image)
+      reader.onload = (e) => {
+        console.log(e.target.result)
+        this.movie.image = e.target.result
+      }
     }
   }
 }
@@ -95,6 +110,21 @@ p {
   gap: 5px;
   padding: 10px;
   border-radius: 10px;
+}
+
+.add-image-container {
+  flex-direction: column;
+  align-items: left;
+  gap: 10px;
+}
+
+.add-image-container > * {
+  display: block;
+  margin: 10px;
+}
+
+.add-image-container p {
+  text-align: left;
 }
 
 .pop-up-msg {

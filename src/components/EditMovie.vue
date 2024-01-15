@@ -88,4 +88,10 @@ button {
 button:hover {
   opacity: 1;
 }
+
+.add-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
 </style>

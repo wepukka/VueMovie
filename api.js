@@ -72,6 +72,7 @@ export async function apiDeleteMovie(id) {
 
 // Update movie
 export async function apiUpdateMovie(movie) {
+  console.log('updatedmovie', movie)
   const response = await fetch(`${localhost}/update/${movie._id}`, {
     method: 'POST',
     body: JSON.stringify(movie),
