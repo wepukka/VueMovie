@@ -7,18 +7,30 @@ import { movieDataIsValid } from '@/helpers/movieHelpers'
 import { apiUpdateMovie } from '../../api'
 // Components
 import ErrorMsg from './ErrorMsg.vue'
+
 // EMIT //
-defineEmits(['stopEditing'])
+defineEmits(['stopEditing', 'startUpdate'])
 // PROPS //
-const props = defineProps({
+
+let props = defineProps({
   movie: Object
 })
 // REF //
 let newMovie = ref({})
 // LifeCycle //
 onMounted(() => {
-  newMovie.value = props.movie
+  newMovie.value = { ...props.movie } // Create a shallow copy, it wont update parents movie object!!  //
 })
+
+// Methods //
+const uploadImage = (e) => {
+  const image = e.target.files[0]
+  const reader = new FileReader()
+  reader.readAsDataURL(image)
+  reader.onload = (e) => {
+    newMovie.value.image = e.target.result
+  }
+}
 </script>
 
 <template>
@@ -38,6 +50,13 @@ onMounted(() => {
     <v-btn style="color: var(--pos)" block @click="updateMovie(newMovie)">Edit</v-btn>
     <v-btn style="color: var(--neg)" block @click="stopEdit()">Cancel</v-btn>
     <ErrorMsg v-if="isError" :errorMsg="errorMsg" />
+
+    <div class="add-image-container">
+      <p>Add image (MAX FILE SIZE 50KB)</p>
+      <a href="https://imagecompressor.io/compress-to-exact-size">COMPRESS IMAGES</a>
+      <input type="file" accept="image/jpeg" v-on:change="uploadImage" />
+    </div>
+    <img :src="newMovie.image" />
   </div>
 </template>
 
@@ -56,7 +75,6 @@ export default {
     },
     async updateMovie(newMovie) {
       this.isError = false
-
       let isValid = movieDataIsValid({
         title: newMovie.title,
         year: newMovie.year,
@@ -70,7 +88,7 @@ export default {
 
       let updateMovie = await apiUpdateMovie(newMovie)
       if (updateMovie.payload.success) {
-        this.stopEdit()
+        this.$emit('startUpdate')
       } else {
         this.errorMsg = updateMovie.payload.errorMsg
       }
@@ -93,5 +111,11 @@ button:hover {
   display: flex;
   flex-direction: column;
   align-items: left;
+  margin: 10px 0px 10px 0px;
+}
+
+img {
+  max-width: 200px;
+  max-height: 200px;
 }
 </style>

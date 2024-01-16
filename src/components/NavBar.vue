@@ -128,8 +128,7 @@ export default {
   .nav-links {
     position: fixed;
     flex-direction: column;
-
-    margin-top: 99px;
+    margin-top: 97px;
     width: 100%;
     left: -600px;
     top: 0;

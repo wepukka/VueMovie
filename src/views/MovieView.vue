@@ -5,17 +5,27 @@ import { apiFetchMovieById, apiDeleteMovie } from '../../api'
 import MovieCard from '@/components/MovieCard.vue'
 import EditMovie from '@/components/EditMovie.vue'
 import DeleteMovie from '@/components/DeleteMovie.vue'
+import LoadingCircle from '@/components/LoadingCircle.vue'
 </script>
 
 <template>
-  <div class="movie-view">
+  <div class="loading-container" v-if="updating">
+    <h1>Updating</h1>
+    <LoadingCircle />
+  </div>
+  <div class="movie-view" v-else>
     <DeleteMovie
       v-if="deleting"
       :movie="movie"
       @stopDeleteProcess="stopDeleteProcess()"
       @deleteMovie="deleteMovie()"
     />
-    <EditMovie v-else-if="editing" :movie="movie" @stopEditing="stopEditProcess()" />
+    <EditMovie
+      v-else-if="editing"
+      :movie="movie"
+      @stopEditing="stopEditProcess()"
+      @startUpdate="startUpdateProcess()"
+    />
     <MovieCard
       v-else
       :movie="movie"
@@ -31,12 +41,20 @@ export default {
     return {
       movie: {},
       success: true,
-      loading: true,
+      updating: false,
       deleting: false,
       editing: false
     }
   },
   methods: {
+    async startUpdateProcess() {
+      this.updating = true
+      this.stopEditProcess()
+      this.fetchMovieById()
+      setTimeout(() => {
+        this.updating = false
+      }, 2000)
+    },
     startDeleteProcess() {
       return (this.deleting = true)
     },
@@ -49,6 +67,7 @@ export default {
     stopEditProcess() {
       return (this.editing = false)
     },
+
     async deleteMovie() {
       let deleted = await apiDeleteMovie(this.movie._id)
       if (deleted.payload.success) {
@@ -61,10 +80,8 @@ export default {
       let movie = await apiFetchMovieById(this.$route.params.id)
       if (movie.payload.success) {
         this.movie = movie.payload.data
-        this.loading = false
       } else {
         this.success = false
-        this.loading = false
       }
     }
   },
@@ -83,6 +100,15 @@ export default {
   padding: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 5px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
 }
 
 @media (min-width: 600px) {
