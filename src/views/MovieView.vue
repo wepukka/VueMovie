@@ -9,8 +9,8 @@ import LoadingCircle from '@/components/LoadingCircle.vue'
 </script>
 
 <template>
-  <div class="loading-container" v-if="updating">
-    <h1>Updating</h1>
+  <div class="loading-container" v-if="loading">
+    <h1>{{loadingMsg}}</h1>
     <LoadingCircle />
   </div>
   <div class="movie-view" v-else>
@@ -41,18 +41,20 @@ export default {
     return {
       movie: {},
       success: true,
-      updating: false,
+      loading: false,
       deleting: false,
-      editing: false
+      editing: false,
+      loadingMsg: ""
     }
   },
   methods: {
     async startUpdateProcess() {
-      this.updating = true
+      this.loading = true
+      this.loadingMsg = "Updating"
       this.stopEditProcess()
       this.fetchMovieById()
-      setTimeout(() => {
-        this.updating = false
+      setTimeout(() => { // If we don't wait long enough or refresh the page we will fetch unupdated data 
+        this.loading = false
       }, 2000)
     },
     startDeleteProcess() {
@@ -86,7 +88,10 @@ export default {
     }
   },
   async mounted() {
-    this.fetchMovieById()
+    this.loading = true;
+    this.loadingMsg = "Loading Movie!"
+    await this.fetchMovieById()
+    this.loading = false
   }
 }
 </script>

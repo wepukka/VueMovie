@@ -1,35 +1,13 @@
-# vue-project
+# Vue MovieDB project
+Vue movie database application with backend CRUD operations to modify movies and search them with filters
 
-This template should help get you started developing with Vue 3 in Vite.
+## Backend 
+Simple node CRUD backend
+[Repository For Backend](https://github.com/wepukka/VueProjectBe)
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+### Todo
+    Split code, more components, more functions
+    Add Store?
+    More utils & helpers, less rewritten code
+    More commenting!!
+    Css refactoring, more css variables 
