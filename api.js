@@ -1,8 +1,8 @@
-const localhost = 'http://localhost:3000'
+const baseURl = 'https://vuemoviedb.onrender.com'
 
 // Fetch by id
 export async function apiFetchMovieById(id) {
-  const response = await fetch(`${localhost}/movie/${id}`, {
+  const response = await fetch(`${baseURl}/movie/${id}`, {
     method: 'GET'
   })
 
@@ -12,7 +12,7 @@ export async function apiFetchMovieById(id) {
 
 // Fetch all
 export async function apiFetchMovies() {
-  const response = await fetch(`${localhost}/all-movies`, {
+  const response = await fetch(`${baseURl}/all-movies`, {
     method: 'GET'
   })
 
@@ -23,7 +23,7 @@ export async function apiFetchMovies() {
 // Fetch using filters
 export async function apiFetchWithFilters(data) {
   const response = await fetch(
-    `${localhost}/filter/?title=${data.title}&year=${data.year}&genre=${data.genre}`,
+    `${baseURl}/filter/?title=${data.title}&year=${data.year}&genre=${data.genre}`,
     {
       method: 'GET'
     }
@@ -35,7 +35,7 @@ export async function apiFetchWithFilters(data) {
 
 // Add movie
 export async function apiAddMovie(movie) {
-  const response = await fetch(`${localhost}/add-movie`, {
+  const response = await fetch(`${baseURl}/add-movie`, {
     method: 'POST',
     body: JSON.stringify(movie),
     headers: {
@@ -58,7 +58,7 @@ export async function apiAddMovie(movie) {
 
 // Delete by id
 export async function apiDeleteMovie(id) {
-  const response = await fetch(`${localhost}/del-movie`, {
+  const response = await fetch(`${baseURl}/del-movie`, {
     method: 'POST',
     body: JSON.stringify({ id: id }),
     headers: {
@@ -73,7 +73,7 @@ export async function apiDeleteMovie(id) {
 // Update movie
 export async function apiUpdateMovie(movie) {
   console.log('updatedmovie', movie)
-  const response = await fetch(`${localhost}/update/${movie._id}`, {
+  const response = await fetch(`${baseURl}/update/${movie._id}`, {
     method: 'POST',
     body: JSON.stringify(movie),
     headers: {
