@@ -2,6 +2,8 @@
 // Helpers
 import { movieDataIsValid } from '../helpers/movieHelpers'
 
+// Utils
+import { openInNewTab } from '../utils/browser'
 // Api //
 import { apiAddMovie } from '../../api'
 import ErrorMsg from '@/components/ErrorMsg.vue'
@@ -25,8 +27,11 @@ import ErrorMsg from '@/components/ErrorMsg.vue'
     <v-textarea v-model="movie.lore" label="Lore (optional)"></v-textarea>
     <div class="add-image-container">
       <p>Add image (MAX FILE SIZE 50KB)</p>
-      <a href="https://imagecompressor.io/compress-to-exact-size">COMPRESS IMAGES</a>
       <input type="file" accept="image/jpeg" @change="uploadImage" />
+      <button @click="openInNewTab('https://imagecompressor.io/compress-to-exact-size')">
+        Compress Images
+      </button>
+      <img :src="movie.image" />
     </div>
     <v-btn block style="color: var(--pos)" @click="addMovie(movie)">Add movie</v-btn>
   </div>
@@ -112,19 +117,22 @@ p {
   border-radius: 10px;
 }
 
-.add-image-container {
-  flex-direction: column;
-  align-items: left;
-  gap: 10px;
-}
-
 .add-image-container > * {
   display: block;
-  margin: 10px;
+  margin-top: 20px;
+  text-align: left;
 }
 
-.add-image-container p {
-  text-align: left;
+.add-image-container > button {
+  padding: 5px;
+
+  border: 1px solid black;
+  background-color: rgb(240, 240, 240);
+}
+
+img {
+  max-height: 200px;
+  max-width: 200px;
 }
 
 .pop-up-msg {
