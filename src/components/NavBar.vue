@@ -2,7 +2,7 @@
 
 <template>
   <div class="nav">
-    <h1>Movie DB</h1>
+    <h1>MovieDB</h1>
     <div class="nav-links" :class="navOpen ? 'toggled' : null">
       <a @click="routerPush('/', $event)">Home</a>
       <a @click="routerPush('/contribute', $event)">Contribute</a>
