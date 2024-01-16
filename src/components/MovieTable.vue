@@ -1,83 +1,70 @@
-<script setup></script>
+<script setup>
+import LoadingCircle from './LoadingCircle.vue'
+</script>
 
 <template>
-  <div class="filters-container">
-    <v-responsive>
-      <v-text-field v-model="title" label="Filter By Title" hide-details="auto"></v-text-field>
-    </v-responsive>
-
-    <v-responsive>
-      <v-text-field
-        v-model="release"
-        label="Filter By Release"
-        hide-details="auto"
-        type="number"
-        hide-spin-buttons
-      ></v-text-field>
-    </v-responsive>
-
-    <v-select
-      ref="myVSelect"
-      class="test"
-      v-model="selected_genres"
-      :items="genres"
-      label="Filter By Genre"
-      chips
-      multiple
-    ></v-select>
-
-    <v-btn block>Search</v-btn>
+  <div v-if="!loading" class="wrapper">
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Genre</th>
+        <th>Release Year</th>
+      </tr>
+      <tr v-for="(movie, index) in displayedMovies" :key="index" @click="goToMovieView(movie)">
+        <td>{{ movie.title }}</td>
+        <td>{{ movie.genre }}</td>
+        <td>{{ movie.year }}</td>
+      </tr>
+    </table>
+    <div class="pagination">
+      <button
+        v-for="pageNumber in totalPages"
+        :key="pageNumber"
+        @click="changePage(pageNumber)"
+        :class="{ active: pageNumber === currentPage }"
+      >
+        {{ pageNumber }}
+      </button>
+    </div>
   </div>
-  <table>
-    <tr>
-      <th>Title</th>
-      <th>Genre</th>
-      <th>Release Year</th>
-    </tr>
-    <tr v-for="(movie, index) in movies" :key="index">
-      <td>{{ movie.title }}</td>
-      <td>{{ movie.genre }}</td>
-      <td>{{ movie.release }}</td>
-    </tr>
-  </table>
+  <div class="loading-container" v-else>
+    <LoadingCircle />
+  </div>
 </template>
 
 <!-- this.$refs.myVSelect -->
 <script>
 export default {
+  props: {
+    movies: Object,
+    loading: Boolean
+  },
   data() {
     return {
       genres: ['Drama', 'Fiction', 'Documentary'],
       selected_genres: [],
       release: '',
       title: '',
-      movies: [
-        {
-          title: 'Inception',
-          release: '2010',
-          genre: 'Science Fiction'
-        },
-        {
-          title: 'The Shawshank Redemption',
-          release: '1994',
-          genre: 'Drama'
-        },
-        {
-          title: 'The Dark Knight',
-          release: '2008',
-          genre: 'Action, Crime, Drama'
-        },
-        {
-          title: 'Pulp Fiction',
-          release: '1994',
-          genre: 'Crime, Drama'
-        },
-        {
-          title: 'Forrest Gump',
-          release: '1994',
-          genre: 'Drama, Romance'
-        }
-      ]
+      itemsPerPage: 10,
+      currentPage: 1
+    }
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.movies.length / this.itemsPerPage)
+    },
+    displayedMovies() {
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage
+      const endIndex = startIndex + this.itemsPerPage
+      return this.movies.slice(startIndex, endIndex)
+    }
+  },
+  methods: {
+    changePage(pageNumber) {
+      this.currentPage = pageNumber
+    },
+    goToMovieView(movie) {
+      this.$router.push({ name: 'movie', params: { id: movie._id } })
     }
   }
 }
@@ -93,36 +80,92 @@ export default {
 /* TABLE  */
 table {
   width: 100%;
-  text-align: center;
+  border-collapse: collapse;
 }
+
 table th,
 td {
   text-align: left;
 }
-table tr {
-  background-color: #ffffffd5;
-}
+
 table tr th {
+  color: white;
   background-color: var(--item-background);
 }
-table tr td {
-  font-size: 1rem;
-  font-weight: bold;
-  padding: 10px;
-  cursor: pointer;
+
+table tr th:first-child {
+  border-top-left-radius: 5px;
 }
+table tr th:last-child {
+  border-top-right-radius: 5px;
+}
+
+tr,
+td:nth-last-child(-n + 2) {
+  width: 15%; /* Equal width for each column, adjust as needed */
+}
+
+table tr td {
+  font-weight: bold;
+  font-size: 0.8rem;
+  padding: 15px 10px 15px 10px;
+  cursor: pointer;
+  text-transform: capitalize;
+  overflow: hidden;
+}
+
+table tr:not(:first-child) {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
 table tr:first-child th {
-  font-size: 1.2rem;
-  height: 60px;
-  padding: 20px 10px 20px 10px;
+  font-size: 1rem;
+
+  padding: 10px 10px 10px 10px;
 }
 table tr:hover {
-  border: 1px solid white;
-  background: var(--item-background-hover);
+  background-color: var(--item-background-hover);
 }
 
 /* V-SELECT */
-.v-input {
-  color: white;
+
+/* PAGINATION */
+.pagination {
+  display: flex;
+  justify-content: center;
+  background-color: var(--item-background);
+  margin-bottom: 20px;
+  height: 50px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.pagination button {
+  color: grey;
+  margin: 5px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: var(--background);
+  border: 1px solid black;
+  width: 50px;
+}
+.pagination .active {
+  color: black;
+  font-weight: bold;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (min-width: 600px) {
+  table tr td {
+    font-size: 1rem;
+  }
+  table tr:first-child th {
+    font-size: 1.2rem;
+  }
 }
 </style>
