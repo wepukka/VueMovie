@@ -3,9 +3,9 @@ import { getDate } from '@/utils/common'
 export function movieDataIsValid({ title, year, genre }) {
   if (
     title === '' ||
-    (genre === '') |
-      (year === '') |
-      !(parseInt(year) >= 1888) |
+    (genre === '') ||
+      (year === '') ||
+      !(parseInt(year) >= 1888) ||
       !(parseInt(year) <= getDate().year + 1)
   )
     return {

@@ -52,9 +52,6 @@ export default {
     fetch(filters) {
       this.$emit('pushQueryAndReload', filters)
     },
-    deleteItem(item) {
-      this.filters.genre = this.filters.genre.filter((find) => find !== item)
-    },
     clearFilters() {
       ;(this.filters.genre = ''), (this.filters.title = ''), (this.filters.year = '')
     }
